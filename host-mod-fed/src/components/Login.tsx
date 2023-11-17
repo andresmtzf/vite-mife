@@ -7,6 +7,7 @@ function Login() {
   return (
     <div>
       <button onClick={() => setAuth(true)}>Iniciar Sesión</button>
+      <i>{``}</i>
     </div>
   )
 }
