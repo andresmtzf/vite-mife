@@ -17,7 +17,6 @@ export default defineConfig(({ mode }) => {
           /* remoteComponent: `${env.REMOTE}assets/remoteEntry.js`, */
           remoteComponent: {
             /* external: `Promise.resolve('http://localhost:7001/assets/remoteEntry.js')`, */
-            /* external: `Promise.resolve('${env.REMOTE}assets/remoteEntry.js')`, */
             external: `Promise.resolve(window._env_.REMOTE)`,
             /* external: `new Promise(resolve=>resolve('http://localhost:7001/assets/remoteEntry.js'))`, */
             externalType: 'promise',
