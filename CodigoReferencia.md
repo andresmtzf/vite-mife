@@ -38,7 +38,7 @@ do
 # Otherwise use value from .env file
 
   [[ -z $value ]] && value=${varvalue}
-  
+
 # Append configuration property to JS file
 
   echo "  $varname: \"$value\"," >> ./v1/af-batch-convenios-web/env-config.js
@@ -104,7 +104,7 @@ server {
     # expires -1;
   }
   # error_page 500 502 503 504  /50x.html;
-  
+
   # location = /50x.html {
   #   root /usr/share/nginx/html;
   # }
@@ -156,4 +156,29 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Exponer el puerto
 EXPOSE 8080
+```
+
+Dockerfile funcionando para Vite sin env
+
+```bash
+# Construir imagen
+
+# Instalar node
+FROM node:18-alpine as builder
+
+# Establecer directorio de trabajo
+WORKDIR /app
+COPY . .
+
+# Instalar dependencias y construcción del proyecto
+RUN npm install
+RUN npm run build
+
+# NGINX
+FROM nginx:1.21.6-alpine as production
+
+# Copiar configuración de nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY ./nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
+
 ```
